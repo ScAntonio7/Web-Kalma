@@ -115,6 +115,28 @@
           <li><strong>Email:</strong> soporte@kalma.app (ejemplo)</li>
           <li><strong>Política completa (PDF):</strong> próximamente</li>
         </ul>
+
+        <hr>
+        <h3>Suscríbete a novedades</h3>
+        <form id="form-subscribe" class="k-form" novalidate>
+          <input class="k-input" type="email" name="email" placeholder="Tu correo" required>
+          <div class="k-actions">
+            <button class="btn" type="submit">Suscribirme</button>
+            <span id="subs-msg" class="k-hint"></span>
+          </div>
+        </form>
+
+        <h3 style="margin-top:18px;">Envíanos un mensaje</h3>
+        <form id="form-contact" class="k-form" novalidate>
+          <input class="k-input" type="text"  name="name"  placeholder="Nombre" required>
+          <input class="k-input" type="email" name="email" placeholder="Correo" required>
+          <textarea class="k-textarea" name="message" placeholder="Tu mensaje" required></textarea>
+          <div class="k-actions">
+            <button class="btn" type="submit">Enviar</button>
+            <span id="contact-msg" class="k-hint"></span>
+          </div>
+        </form>
+
         <p class="disclaimer">Esta página resume aspectos clave. La versión vigente de la política de privacidad será publicada dentro de la app y enlazada desde este sitio.</p>
       </section>
     </article>
@@ -153,5 +175,7 @@
     document.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   </script>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
