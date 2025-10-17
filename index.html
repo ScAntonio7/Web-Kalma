@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kalma – Bienestar emocional para jóvenes</title>
+
+<!-- FAVICON: usa la MISMA imagen del logo -->
+<link rel="icon" type="image/jpeg" href="img/mascota.jpg">
+
+<style>
+:root{
+  --cream:#F9D7B4;
+  --orange:#0a0705;
+  --terracotta:#BC421D;
+  --clay:#dd6747;
+  --brown:#a07661;
+  --ink:#101826;
+  --muted:#6b7280;
+  --ring: rgba(228,103,39,.35);
+  --wrap:1120px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#1f2937;background:linear-gradient(180deg,#fff,#fff7f2 40%,#fff)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 16px}
+
+/* Header */
+.site-header.surface{background:linear-gradient(90deg,var(--brown), var(--clay));color:#fff}
+.header-inner,.footer-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.logo-svg{height:50px;width:auto;display:block}
+.brand-text{font-weight:800;letter-spacing:.2px;font-size:1.1rem}
+@media(max-width:900px){.logo-svg{height:42px}}
+
+/* Nav */
+.top-nav{display:flex;align-items:center;gap:16px;position:static}
+.top-nav a{color:#fff;text-decoration:none;opacity:.95}
+.top-nav a:hover{opacity:1;text-decoration:underline}
+.btn{display:inline-block;border-radius:12px;padding:9px 14px;background:var(--orange);color:#fff;text-decoration:none;font-weight:700;box-shadow:0 6px 14px rgba(228,103,39,.25)}
+.btn:hover{transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.35)}
+.btn-light{background:#fff;color:var(--brown)}
+.btn-contrast{background:var(--terracotta)}
+.burger{display:none;background:transparent;border:0;color:#fff;font-size:22px}
+@media(max-width:900px){
+  .burger{display:inline-block}
+  .top-nav{position:absolute;right:16px;top:58px;background:var(--brown);padding:10px;border-radius:12px;display:none}
+  .top-nav.open{display:block}
+  .top-nav a{display:block;margin:8px 0}
+}
+
+/* Hero */
+.hero{background:
+  radial-gradient(1200px 600px at 10% -10%, var(--cream), transparent),
+  radial-gradient(900px 500px at 90% -20%, rgba(188,66,29,.22), transparent);
+  padding:64px 0 48px}
+.hero-inner{display:flex;align-items:center;min-height:220px}
+.hero h1{font-size:2.2rem;line-height:1.2;margin:0 0 8px;color:var(--brown)}
+.lead{font-size:1.1rem;color:#374151;max-width:760px}
+.hero-actions{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
+
+/* Layout */
+.content{display:grid;grid-template-columns:300px 1fr;gap:24px;padding:28px 0}
+@media(max-width:900px){.content{grid-template-columns:1fr}.toc{order:2}}
+.card{background:#fff;border:1px solid #f0e7e2;border-radius:16px;padding:18px 18px 6px;box-shadow:0 6px 20px rgba(121,64,35,.06)}
+.doc-section{margin-bottom:22px}
+
+/* Headings & chips */
+.h-section{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:1.5rem;color:var(--clay)}
+.h-section::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--orange),transparent)}
+.sub{margin:.6rem 0 .25rem;color:var(--terracotta)}
+.mini{margin:.3rem 0 .1rem;color:var(--brown);font-weight:700}
+.overline{font-size:.8rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.note{background:linear-gradient(90deg,#fff,#fff1e9);border-left:4px solid var(--orange);padding:10px;border-radius:8px;margin:.5rem 0}
+.pill{display:inline-block;background:var(--cream);padding:4px 10px;border-radius:999px;border:1px solid #f2d9c9;color:var(--brown);margin:.35rem 0 .2rem}
+
+/* Lists */
+.checklist{padding-left:0;list-style:none}
+.checklist li{padding-left:28px;position:relative;margin:8px 0}
+.checklist li::before{content:"✓";position:absolute;left:0;top:0;color:var(--terracotta);font-weight:800}
+.feature-list{padding-left:18px}
+.feature-list li{margin:6px 0}
+
+/* TOC */
+.toc-card{position:sticky;top:90px}
+.toc-nav{display:block;margin-top:8px}
+.toc a{display:block;text-decoration:none;color:#374151}
+.palette{display:flex;gap:6px;margin-top:12px}
+.palette.big span{width:42px;height:32px}
+.palette span{width:24px;height:18px;border-radius:6px;background:var(--c);display:inline-block;border:1px solid rgba(0,0,0,.05)}
+
+/* TOC Accordion */
+.toc-accordion details{border-radius:12px;padding:6px}
+.toc-accordion details + details{margin-top:6px}
+.toc-accordion summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;
+  padding:10px;border-radius:10px;color:var(--brown);font-weight:800;user-select:none
+}
+.toc-accordion summary::-webkit-details-marker{display:none}
+.toc-accordion summary::before{
+  content:"▸";font-size:12px;opacity:.7;transform:translateY(1px);transition:transform .15s ease
+}
+.toc-accordion details[open] > summary::before{transform:rotate(90deg) translateY(0)}
+.toc-accordion a{padding:7px 10px 7px 26px;margin:2px 0;border-radius:10px}
+.toc-accordion a:hover{background:#fff6f0}
+.toc-accordion a.active{font-weight:700;background:#fff3ea;border:1px solid #ffd8bf}
+.toc-accordion details[open]{background:#fffdfb;box-shadow:inset 0 0 0 1px #f5e7df}
+
+/* Forms & footer */
+.k-form{display:grid;gap:10px;max-width:560px}
+.k-input,.k-textarea{width:100%;padding:12px;border:1px solid #e7e1dc;border-radius:10px;outline:none}
+.k-input:focus,.k-textarea:focus{border-color:var(--orange);box-shadow:0 0 0 4px var(--ring)}
+.k-textarea{min-height:120px;resize:vertical}
+.k-actions{display:flex;align-items:center;gap:12px}
+.disclaimer{color:#6b7280;font-size:.95rem}
+.footer-links a{color:#fff;text-decoration:none;margin-left:16px;opacity:.95}
+.footer-links a:hover{opacity:1;text-decoration:underline}
+.thanks{font-weight:800;color:var(--brown)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header surface">
+  <div class="wrap header-inner">
+    <a class="brand" href="#" aria-label="Inicio">
+      <!-- MISMA imagen para logo y favicon -->
+      <img src="img/mascota sin fondo.png" alt="Kalma logo" class="logo-svg">
+      <span class="brand-text">Kalma</span>
+    </a>
+
+    <nav id="top-nav" class="top-nav" aria-label="Navegación principal">
+      <a href="#agradecimientos">Agradecimientos</a>
+      <a href="#introduccion">Introducción</a>
+      <a href="#objetivos">Objetivos</a>
+      <a href="#sobre-kalma">Info App</a>
+      <a href="#contacto" class="btn btn-ghost">Contacto</a>
+      <a class="btn" href="#">Descargar App</a>
+    </nav>
+
+    <button class="burger" aria-label="Abrir menú" aria-controls="top-nav" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <h1>Kalma: bienestar emocional para jóvenes</h1>
+      <p class="lead">Una iniciativa que integra psicología, mindfulness y tecnología para acompañar a adolescentes en su autocuidado emocional. Explora el proyecto, conoce la app y descubre cómo cuidarte un día a la vez.</p>
+      <div class="hero-actions">
+        <a href="#introduccion" class="btn btn-contrast">Conoce el proyecto</a>
+        <a href="#sobre-kalma" class="btn btn-light">Acerca de la App</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="wrap content">
+  <!-- TOC en acordeón -->
+  <aside class="toc" aria-label="Índice de contenido">
+    <div class="toc-card card">
+      <strong class="overline">Índice</strong>
+      <nav class="toc-nav toc-accordion">
+        <details class="toc-group" id="toc-proyecto" open>
+          <summary><span>Proyecto</span></summary>
+          <a href="#agradecimientos">Agradecimientos</a>
+          <a href="#introduccion">Introducción</a>
+          <a href="#objetivos">Objetivos</a>
+          <a href="#justificacion">Justificación</a>
+          <a href="#desarrollo">Desarrollo</a>
+        </details>
+        <details class="toc-group" id="toc-app">
+          <summary><span>App & Privacidad</span></summary>
+          <a href="#sobre-kalma">Sobre Kalma</a>
+          <a href="#datos-que-recopilamos">Datos que recopilamos</a>
+          <a href="#como-usamos-los-datos">Cómo usamos los datos</a>
+          <a href="#tus-controles">Tus controles</a>
+          <a href="#seguridad">Seguridad</a>
+          <a href="#menores">Menores</a>
+          <a href="#contacto">Contacto</a>
+        </details>
+      </nav>
+      <div class="palette">
+        <span style="--c:#F9D7B4"></span>
+        <span style="--c:#E46727"></span>
+        <span style="--c:#BC421D"></span>
+        <span style="--c:#A74226"></span>
+        <span style="--c:#794023"></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- BODY -->
+  <article class="doc">
+
+    <!-- Proyecto -->
+    <section id="agradecimientos" class="doc-section card">
+      <h2 class="h-section">Agradecimientos</h2>
+      <p>Queremos expresar nuestro más sincero agradecimiento a todas las personas e instituciones que hicieron posible el desarrollo de este proyecto. En primer lugar, agradecemos a nuestros docentes y asesores, quienes con su orientación, paciencia y conocimientos nos brindaron herramientas valiosas para enriquecer esta propuesta y darle un enfoque riguroso desde la perspectiva psicológica y tecnológica.</p>
+      <p>De igual manera, reconocemos el apoyo de nuestros compañeros y colaboradores, cuya disposición para aportar ideas, revisar contenidos y compartir experiencias significó un aporte fundamental en la construcción de esta iniciativa. Sus observaciones y sugerencias contribuyeron a que el proyecto adquiera mayor claridad y coherencia.</p>
+      <p>No podemos dejar de mencionar a nuestras familias, quienes con comprensión, motivación y confianza nos ofrecieron un respaldo incondicional a lo largo del proceso. Su apoyo emocional fue un pilar esencial para mantener la constancia y superar los momentos de dificultad.</p>
+      <p>Asimismo, agradecemos a las instituciones educativas y espacios académicos que nos brindaron acceso a recursos bibliográficos, talleres y entornos de aprendizaje donde fue posible desarrollar habilidades prácticas que hoy se reflejan en este trabajo.</p>
+      <p>Finalmente, extendemos un reconocimiento especial a los jóvenes que, con sus testimonios y experiencias, inspiraron la creación de <strong>KALMA</strong>. Este proyecto se nutre de sus voces y busca retribuir con una herramienta útil para su bienestar emocional.</p>
+      <p class="thanks">A todos ustedes, ¡muchas gracias!</p>
+    </section>
+
+    <section id="introduccion" class="doc-section card">
+      <h2 class="h-section">Introducción</h2>
+      <p>El bienestar emocional y la salud mental representan pilares fundamentales en el desarrollo integral de los jóvenes. La adolescencia, etapa marcada por cambios biológicos, sociales y psicológicos, suele traer consigo vulnerabilidades emocionales como ansiedad, estrés y dificultades de autocontrol.</p>
+      <p>En respuesta a estas necesidades, se propone la aplicación móvil <strong>KALMA</strong>, una herramienta digital orientada a proporcionar apoyo accesible y amigable a los adolescentes.</p>
+    </section>
+
+    <section id="objetivos" class="doc-section card">
+      <h2 class="h-section">Objetivos</h2>
+      <h3 class="pill">Objetivo general</h3>
+      <p>Atender las necesidades emocionales de los jóvenes, proporcionando herramientas digitales interactivas que contribuyan a disminuir la ansiedad, favorecer el autocuidado y mejorar la regulación emocional.</p>
+      <h3 class="pill">Objetivos específicos</h3>
+      <ul class="checklist">
+        <li>Proporcionar métodos de relajación, ejercicios de respiración y meditaciones guiadas que ayuden a disminuir la ansiedad.</li>
+        <li>Fomentar hábitos saludables mediante recordatorios diarios, rutinas personalizadas y materiales educativos que promuevan el bienestar físico y emocional.</li>
+        <li>Ofrecer recursos para reconocer, registrar y comprender las emociones, asistiendo a los usuarios en la gestión consciente de sus estados de ánimo.</li>
+        <li>Permitir que los usuarios visualicen su evolución emocional a través de gráficos y registros personales.</li>
+        <li>Garantizar una interfaz clara, amigable y atractiva para que los jóvenes estén motivados a usar la aplicación de forma continua.</li>
+      </ul>
+    </section>
+
+    <section id="justificacion" class="doc-section card">
+      <h2 class="h-section">Justificación</h2>
+      <p>El diseño de <strong>KALMA</strong> se fundamenta en teorías y enfoques de la psicología positiva, la terapia cognitivo-conductual y las prácticas de <em>mindfulness</em>. Estas perspectivas sugieren que el registro de emociones, la autorreflexión y la práctica de técnicas de relajación contribuyen a una mejor autorregulación emocional (Gross, 2015).</p>
+      <p>Asimismo, el uso de recordatorios motivacionales se sustenta en principios de refuerzo positivo (Skinner, 1953), fomentando la continuidad del hábito saludable.</p>
+    </section>
+
+    <section id="desarrollo" class="doc-section card">
+      <h2 class="h-section">Desarrollo</h2>
+      <h3 class="sub">1) Funciones mínimas de la primera versión</h3>
+      <ul class="feature-list">
+        <li><strong>Pantalla de bienvenida y registro sencillo:</strong> correo o Google, con opción de modo invitado.</li>
+        <li><strong>Registro del estado de ánimo:</strong> mediante íconos/emojis y notas breves.</li>
+        <li><strong>Recursos básicos:</strong> un ejercicio de respiración, lista de autocuidado y registro de emociones.</li>
+        <li><strong>Notificaciones motivacionales:</strong> mensajes breves y positivos.</li>
+        <li><strong>Visualización de progreso:</strong> gráfico semanal simple.</li>
+      </ul>
+      <p class="note">Estas funciones iniciales fomentan la autoconciencia, brindan ayuda inmediata, refuerzan la constancia y permiten al usuario percibir sus avances.</p>
+
+      <h3 class="sub">2) Chatbot integrado: <span class="pill">KalBot</span></h3>
+      <p>KalBot actúa como acompañante virtual empático y motivador. Utiliza un lenguaje sencillo, juvenil y apoyado con emojis para acercarse al usuario.</p>
+      <ul class="feature-list">
+        <li>Recepción y bienvenida inicial.</li>
+        <li>Registro del estado emocional diario con respuestas breves de ánimo.</li>
+        <li>Sugerencia de recursos personalizados según el estado emocional del usuario.</li>
+        <li>Acceso directo a áreas clave: ansiedad, cuidado personal y manejo emocional.</li>
+        <li>Notificaciones motivacionales y seguimiento semanal de la evolución emocional.</li>
+      </ul>
+
+      <h3 class="sub">3) Diseño visual</h3>
+      <h4 class="mini">3.1 Paleta de colores</h4>
+      <p>La propuesta aplica una paleta cálida y accesible orientada a generar calma, cercanía y vitalidad.</p>
+      <div class="palette big">
+        <span style="--c:#F9D7B4"></span>
+        <span style="--c:#E46727"></span>
+        <span style="--c:#BC421D"></span>
+        <span style="--c:#A74226"></span>
+        <span style="--c:#794023"></span>
+      </div>
+
+      <h4 class="mini">3.2 Moodboard</h4>
+      <p>Estética limpia, ilustraciones amigables y microinteracciones suaves que transmiten seguridad y acompañamiento.</p>
+
+      <h4 class="mini">3.2.1 Mascota como recurso emocional</h4>
+      <p>Desde la psicología del color y la teoría del apego, el uso de una mascota ilustrada (panda) favorece la conexión afectiva con los usuarios, reforzando sensación de seguridad y confianza.</p>
+
+      <h4 class="mini">3.3 Logotipo</h4>
+      <p>El logotipo incorpora un panda rojo como eje simbólico del bienestar emocional, con tipografía manuscrita fluida que aporta cercanía y calidez.</p>
+      <ul class="feature-list">
+        <li><strong>Tipografía personalizada:</strong> integración de la cola del panda en la “a” final para reforzar identidad.</li>
+        <li><strong>Paleta cromática:</strong> naranjas y marrones (energía positiva y confianza) con variantes en blanco y negro.</li>
+        <li><strong>Variaciones:</strong> a color, monocromático y fondo oscuro para asegurar versatilidad.</li>
+      </ul>
+    </section>
+
+    <!-- App & Privacidad -->
+    <section id="sobre-kalma" class="doc-section card">
+      <h2 class="h-section">Sobre Kalma</h2>
+      <p><strong>Kalma</strong> es una app de bienestar emocional que ofrece ejercicios breves, registro de emociones y recomendaciones de autocuidado. Esta web es un espacio informativo: no requiere iniciar sesión y no instala cookies de seguimiento por defecto.</p>
+      <ul>
+        <li><strong>Plataformas:</strong> Android (app). Próximamente iOS.</li>
+        <li><strong>Finalidad:</strong> educación para la regulación emocional y hábitos saludables.</li>
+        <li><strong>Modelo:</strong> uso personal; no vendemos datos.</li>
+      </ul>
+    </section>
+
+    <section id="datos-que-recopilamos" class="doc-section card">
+      <h2 class="h-section">Datos que recopilamos</h2>
+      <p>En la app móvil podemos tratar información mínima para operar y mejorar los ejercicios:</p>
+      <ul>
+        <li><strong>Cuenta:</strong> email opcional (si habilitas respaldo o sincronización).</li>
+        <li><strong>Registros de ánimo:</strong> emociones seleccionadas, notas opcionales y fecha/hora.</li>
+        <li><strong>Métricas de uso anónimas:</strong> número de sesiones y funciones utilizadas (sin contenido sensible).</li>
+        <li><strong>Soporte:</strong> mensajes que nos envíes al pedir ayuda.</li>
+      </ul>
+      <p>La versión web informativa no solicita registros ni sube información personal.</p>
+    </section>
+
+    <section id="como-usamos-los-datos" class="doc-section card">
+      <h2 class="h-section">Cómo usamos los datos</h2>
+      <ul>
+        <li><strong>Proveer funciones:</strong> guardar tu progreso y mostrar tendencias personales.</li>
+        <li><strong>Mejorar contenidos:</strong> estadísticas agregadas para priorizar ejercicios útiles.</li>
+        <li><strong>Atención al usuario:</strong> responder solicitudes de soporte.</li>
+      </ul>
+      <p>No vendemos tu información. No mostramos anuncios personalizados.</p>
+    </section>
+
+    <section id="tus-controles" class="doc-section card">
+      <h2 class="h-section">Tus controles y opciones</h2>
+      <ul>
+        <li><strong>Exportar o borrar datos:</strong> desde “Progreso &gt; Ajustes” en la app puedes descargar o eliminar tu historial.</li>
+        <li><strong>Anonimato:</strong> puedes usar Kalma sin crear cuenta (almacenamiento local en el dispositivo).</li>
+        <li><strong>Permisos:</strong> la app solo solicita los estrictamente necesarios.</li>
+        <li><strong>Preferencias:</strong> recordatorios, idioma y accesibilidad desde Ajustes.</li>
+      </ul>
+    </section>
+
+    <section id="seguridad" class="doc-section card">
+      <h2 class="h-section">Seguridad</h2>
+      <p>Aplicamos buenas prácticas de seguridad: cifrado en tránsito (HTTPS), mínima recolección de datos, controles de acceso y auditorías internas. Si detectas un problema de seguridad, avísanos en la sección de contacto.</p>
+    </section>
+
+    <section id="menores" class="doc-section card">
+      <h2 class="h-section">Menores de edad</h2>
+      <p>Kalma está dirigida a mayores de 13 años. Si eres madre, padre o tutor y crees que una/el menor nos ha proporcionado datos, contáctanos para atender tu solicitud.</p>
+    </section>
+
+    <section id="contacto" class="doc-section card">
+      <h2 class="h-section">Contacto</h2>
+      <p>Para preguntas sobre privacidad o soporte técnico:</p>
+      <ul>
+        <li><strong>Email:</strong> soporte@kalma.app (ejemplo)</li>
+        <li><strong>Política completa (PDF):</strong> próximamente</li>
+      </ul>
+      <hr />
+      <h3>Suscríbete a novedades</h3>
+      <form id="form-subscribe" class="k-form" novalidate>
+        <input class="k-input" type="email" name="email" placeholder="Tu correo" required />
+        <div class="k-actions">
+          <button class="btn" type="submit">Suscribirme</button>
+          <span id="subs-msg" class="k-hint"></span>
+        </div>
+      </form>
+
+      <h3 style="margin-top:18px;">Envíanos un mensaje</h3>
+      <form id="form-contact" class="k-form" novalidate>
+        <input class="k-input" type="text"  name="name"  placeholder="Nombre" required />
+        <input class="k-input" type="email" name="email" placeholder="Correo" required />
+        <textarea class="k-textarea" name="message" placeholder="Tu mensaje" required></textarea>
+        <div class="k-actions">
+          <button class="btn" type="submit">Enviar</button>
+          <span id="contact-msg" class="k-hint"></span>
+        </div>
+      </form>
+
+      <p class="disclaimer">Esta página resume aspectos clave. La versión vigente de la política de privacidad será publicada dentro de la app y enlazada desde este sitio.</p>
+    </section>
+
+  </article>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer surface" style="background:linear-gradient(90deg,var(--brown), var(--ink));">
+  <div class="wrap footer-inner">
+    <span>© Kalma · Bienestar emocional</span>
+    <nav class="footer-links" aria-label="Enlaces de pie de página">
+      <a href="#sobre-kalma">Acerca</a>
+      <a href="#seguridad">Seguridad</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+// Toggle menú móvil
+const burger = document.querySelector('.burger');
+const nav = document.querySelector('.top-nav');
+burger.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+// TOC: resaltar activo + abrir grupo acordeón adecuado
+const tocLinks = Array.from(document.querySelectorAll('.toc-accordion a'))
+  .filter(a => a.getAttribute('href').startsWith('#'));
+const sections = tocLinks
+  .map(a => document.querySelector(a.getAttribute('href')))
+  .filter(Boolean);
+
+function ensureGroupOpenFor(sectionId){
+  const link = tocLinks.find(a => a.getAttribute('href') === '#' + sectionId);
+  if(!link) return;
+  const group = link.closest('details');
+  if(group && !group.open) group.open = true;
+  document.querySelectorAll('.toc-accordion details').forEach(d=>{
+    if(d !== group) d.open = false; // acordeón real
+  });
+}
+
+function onScrollTOC(){
+  const y = window.scrollY + 140;
+  let current = sections[0];
+  for(const s of sections) if(s.offsetTop <= y) current = s;
+  tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
+  ensureGroupOpenFor(current.id);
+}
+document.addEventListener('scroll', onScrollTOC, { passive:true });
+onScrollTOC();
+
+// Scroll suave y apertura al clicar
+document.addEventListener('click', (e)=>{
+  const a = e.target.closest('.toc-accordion a[href^="#"]');
+  if(!a) return;
+  const el = document.querySelector(a.getAttribute('href'));
+  if(!el) return;
+  e.preventDefault();
+  window.scrollTo({ top: el.offsetTop - 100, behavior: 'smooth' });
+  tocLinks.forEach(x => x.classList.toggle('active', x === a));
+  ensureGroupOpenFor(el.id);
+});
+</script>
+</body>
+</html>
